@@ -6,7 +6,7 @@ export default function Sidebar({ filters, setFilters }) {
   // 1. Environment Variables (Set these in Vercel Dashboard)
   const KOBO_USERNAME = process.env.REACT_APP_KOBO_USERNAME;
   const ASSET_UID = process.env.REACT_APP_ASSET_UID;
-  const KOBO_FORM_URL = process.env.REACT_APP_KOBO_FORM_URL;
+  const KOBO_FORM_URL = process.env.VITE_REACT_APP_KOBO_FORM_URL;
 
   const states = ["Andhra Pradesh", "Gujarat", "Assam", "Karnataka", "Tamil Nadu"];
   const biomassTypes = ["Maize", "Rice", "Juliflora", "Bamboo", "Cotton"];
