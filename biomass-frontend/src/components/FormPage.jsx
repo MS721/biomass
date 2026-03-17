@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function FormPage() {
+  // Accessing the variable using the naming convention you specified
   const koboFormUrl = import.meta.env.REACT_APP_KOBO_FORM_URL;
 
   return (
@@ -30,7 +31,8 @@ export default function FormPage() {
         />
       ) : (
         <div style={{ padding: "20px", textAlign: "center" }}>
-          Loading Form... Please ensure VITE_KOBO_FORM_URL is set in Vercel.
+          <h2>Form Loading...</h2>
+          <p>If this takes too long, please check that <b>REACT_APP_KOBO_FORM_URL</b> is set in Vercel.</p>
         </div>
       )}
     </div>
