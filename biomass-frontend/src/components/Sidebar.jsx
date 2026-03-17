@@ -3,10 +3,10 @@ import "./Sidebar.css";
 import * as XLSX from 'xlsx';
 
 export default function Sidebar({ filters, setFilters }) {
-  // 1. UPDATE THESE TWO VALUES
+  // 1. Environment Variables (Set these in Vercel Dashboard)
   const KOBO_USERNAME = process.env.REACT_APP_KOBO_USERNAME;
-const ASSET_UID = process.env.REACT_APP_ASSET_UID;
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+  const ASSET_UID = process.env.REACT_APP_ASSET_UID;
+
   const states = ["Andhra Pradesh", "Gujarat", "Assam", "Karnataka", "Tamil Nadu"];
   const biomassTypes = ["Maize", "Rice", "Juliflora", "Bamboo", "Cotton"];
   const industries = ["Steel Plants", "Other Industries", "Rice Mill"];
@@ -46,34 +46,28 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
     return found ? obj[found] : "";
   };
 
-  /**
-   * Logic to create a clickable Excel Hyperlink using the download_url from MongoDB
-   */
   const createKoboV2Hyperlink = (photoName, submissionId, attachments) => {
     if (!photoName) return "";
-
-    // Look for the attachment where the filename matches or the media_file_basename matches
     const fileMeta = attachments.find(a => 
       a.media_file_basename === photoName || 
       (a.filename && a.filename.endsWith(photoName))
     );
     
-    // If we have a direct download_url from your MongoDB, use it
     if (fileMeta && fileMeta.download_url) {
       return {
-        t: 's', // type: string
-        v: "View Image", // display text
+        t: 's',
+        v: "View Image",
         l: { Target: fileMeta.download_url, Tooltip: `Open photo: ${photoName}` } 
       };
     }
-    
-    return photoName; // Fallback if no metadata found
+    return photoName;
   };
 
   const handleDownloadKoboData = async () => {
-    setCsvStatus("Building Excel with 10+ images...");
+    setCsvStatus("Building Excel with images...");
     try {
-      const response = await fetch(`${BACKEND_URL}/api/submissions`);
+      // CORRECTED: Use relative path for Vercel Rewrites
+      const response = await fetch("/api/submissions");
       const data = await response.json();
       const submissions = Array.isArray(data) ? data : (data.data || []);
 
@@ -91,7 +85,6 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
         const sId = p._id || item._id; 
         const attachments = p._attachments || [];
 
-        // 1. MAP ALL SURVEY INFORMATION (Main Sheet)
         mainSheet.push({
           "Name": getV(p, "Name"),
           "Ph no": getV(p, "Ph_no") || getV(p, "Ph no"),
@@ -113,12 +106,10 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
           "_index": sIndex
         });
 
-        // 2. MAP ALL IMAGES IN REPEAT GROUP (Second Sheet)
         const repeatGroup = p.group_mm89q62 || p.Group || [];
         if (Array.isArray(repeatGroup)) {
-          repeatGroup.forEach((entry, gIdx) => {
+          repeatGroup.forEach((entry) => {
             const photoName = entry["group_mm89q62/PLANT_PHOTO"] || entry["PLANT_PHOTO"] || getV(entry, "PLANT PHOTO");
-            
             if (photoName) {
               imageSheet.push({
                 "Group/PLANT PHOTO (Click to Open)": createKoboV2Hyperlink(photoName, sId, attachments),
@@ -132,9 +123,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
         }
       });
 
-      // 3. GENERATE WORKBOOK
       const wb = XLSX.utils.book_new();
-      
       const wsMain = XLSX.utils.json_to_sheet(mainSheet);
       const wsImages = XLSX.utils.json_to_sheet(imageSheet);
 
@@ -143,10 +132,8 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
         XLSX.utils.book_append_sheet(wb, wsImages, "Images_Repeat_Group");
       }
 
-      // 4. DOWNLOAD
       XLSX.writeFile(wb, `Biomass_Full_Report_${new Date().getTime()}.xlsx`);
       setCsvStatus("Download Complete!");
-
     } catch (e) {
       console.error(e);
       setCsvStatus("Error during export.");
