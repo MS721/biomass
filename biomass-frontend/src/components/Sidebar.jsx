@@ -6,6 +6,7 @@ export default function Sidebar({ filters, setFilters }) {
   // 1. Environment Variables (Set these in Vercel Dashboard)
   const KOBO_USERNAME = process.env.REACT_APP_KOBO_USERNAME;
   const ASSET_UID = process.env.REACT_APP_ASSET_UID;
+  const KOBO_FORM_URL = process.env.REACT_APP_KOBO_FORM_URL;
 
   const states = ["Andhra Pradesh", "Gujarat", "Assam", "Karnataka", "Tamil Nadu"];
   const biomassTypes = ["Maize", "Rice", "Juliflora", "Bamboo", "Cotton"];
@@ -83,6 +84,7 @@ export default function Sidebar({ filters, setFilters }) {
         const p = item.payload || item;
         const sIndex = idx + 1;
         const sId = p._id || item._id; 
+
         const attachments = p._attachments || [];
 
         mainSheet.push({
@@ -180,7 +182,7 @@ export default function Sidebar({ filters, setFilters }) {
       </div>
       <div className="field-collection-center">
         <label>Field Collection</label>
-        <button onClick={() => window.open("/form", "_blank")}>Open Juliflora Form</button>
+        <button onClick={() => window.open(KOBO_FORM_URL, "_blank")}>Open Juliflora Form</button>
         <button onClick={handleDownloadKoboData}>Download Submissions</button>
         {csvStatus && <p className="csv-status">{csvStatus}</p>}
       </div>
