@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function FormPage() {
-  const koboFormUrl = import.meta.env.VITE_KOBO_FORM_URL;
+  const koboFormUrl = import.meta.env.REACT_APP_KOBO_FORM_URL;
 
   return (
     <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column" }}>
