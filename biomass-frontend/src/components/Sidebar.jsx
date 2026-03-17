@@ -3,10 +3,10 @@ import "./Sidebar.css";
 import * as XLSX from 'xlsx';
 
 export default function Sidebar({ filters, setFilters }) {
-  // 1. Environment Variables (Set these in Vercel Dashboard)
-  const KOBO_USERNAME = process.env.REACT_APP_KOBO_USERNAME;
-  const ASSET_UID = process.env.REACT_APP_ASSET_UID;
-  const KOBO_FORM_URL = process.env.VITE_REACT_APP_KOBO_FORM_URL;
+  // 1. Environment Variables (Updated to import.meta.env for Vite)
+  const KOBO_USERNAME = import.meta.env.VITE_KOBO_USERNAME || "";
+  const ASSET_UID = import.meta.env.VITE_ASSET_UID || "";
+  const KOBO_FORM_URL = import.meta.env.VITE_REACT_APP_KOBO_FORM_URL || "#";
 
   const states = ["Andhra Pradesh", "Gujarat", "Assam", "Karnataka", "Tamil Nadu"];
   const biomassTypes = ["Maize", "Rice", "Juliflora", "Bamboo", "Cotton"];
@@ -67,7 +67,6 @@ export default function Sidebar({ filters, setFilters }) {
   const handleDownloadKoboData = async () => {
     setCsvStatus("Building Excel with images...");
     try {
-      // CORRECTED: Use relative path for Vercel Rewrites
       const response = await fetch("/api/submissions");
       const data = await response.json();
       const submissions = Array.isArray(data) ? data : (data.data || []);
@@ -84,7 +83,6 @@ export default function Sidebar({ filters, setFilters }) {
         const p = item.payload || item;
         const sIndex = idx + 1;
         const sId = p._id || item._id; 
-
         const attachments = p._attachments || [];
 
         mainSheet.push({
