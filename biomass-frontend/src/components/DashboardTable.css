@@ -1,0 +1,296 @@
+.dashboard-table-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 3;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.50));
+  backdrop-filter: blur(8px) saturate(1.05);
+  border-radius: 12px;
+  box-shadow: 0 6px 22px rgba(10, 18, 10, 0.06);
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+.dashboard-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.data-count {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Filters Section */
+.dashboard-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.45));
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  box-shadow: 0 6px 22px rgba(10, 18, 10, 0.06);
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1 1 200px;
+  min-width: 180px;
+}
+
+.filter-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.filter-input,
+.filter-select {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(125, 175, 110, 0.18);
+  background: rgba(255,255,255,0.95);
+  font-size: 0.95rem;
+  color: var(--text);
+  box-shadow: 0 2px 8px rgba(10,10,10,0.03);
+  transition: all 0.15s ease;
+}
+
+.filter-input:focus,
+.filter-select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 6px 20px rgba(127,201,111,0.12);
+  transform: translateY(-1px);
+}
+
+.clear-filters-btn {
+  align-self: flex-end;
+  padding: 10px 20px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 8px rgba(127,201,111,0.25);
+  margin-top: 1.75rem;
+}
+
+.clear-filters-btn:hover {
+  background: #6fb85f;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(127,201,111,0.35);
+}
+
+.clear-filters-btn:active {
+  transform: translateY(0);
+}
+
+/* Table Wrapper */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.50));
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 22px rgba(10, 18, 10, 0.06);
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+}
+
+.dashboard-table thead {
+  background: rgba(127, 201, 111, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.dashboard-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+  border-bottom: 2px solid rgba(127, 201, 111, 0.2);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.dashboard-table th.serial-no-header {
+  text-align: center;
+  width: 60px;
+  min-width: 60px;
+  cursor: default;
+  background: rgba(127, 201, 111, 0.15);
+}
+
+.dashboard-table th.sortable {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  position: relative;
+}
+
+.dashboard-table th.sortable:hover {
+  background: rgba(127, 201, 111, 0.15);
+}
+
+.dashboard-table th.sorted-asc,
+.dashboard-table th.sorted-desc {
+  background: rgba(127, 201, 111, 0.2);
+  color: var(--accent);
+}
+
+.sort-indicator {
+  margin-left: 0.5rem;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+.dashboard-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.dashboard-table td.serial-no-cell {
+  text-align: center;
+  font-weight: 600;
+  color: var(--muted);
+  background: rgba(127, 201, 111, 0.05);
+  width: 60px;
+  min-width: 60px;
+}
+
+.dashboard-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.dashboard-table tbody tr:hover {
+  background: rgba(127, 201, 111, 0.08);
+}
+
+.dashboard-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.no-data {
+  text-align: center;
+  padding: 2rem !important;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.table-loading,
+.table-error {
+  text-align: center;
+  padding: 3rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.50));
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  box-shadow: 0 6px 22px rgba(10, 18, 10, 0.06);
+  border: 1px solid rgba(255,255,255,0.5);
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.table-error {
+  color: #d32f2f;
+  text-align: left;
+}
+
+.table-error p {
+  margin: 0.5rem 0;
+}
+
+.table-error input[type="file"] {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border: 2px dashed var(--accent);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.9);
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  width: 100%;
+  max-width: 400px;
+}
+
+.table-error input[type="file"]:hover {
+  border-color: #6fb85f;
+  background: rgba(127, 201, 111, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .dashboard-filters {
+    flex-direction: column;
+  }
+
+  .filter-group {
+    flex: 1 1 100%;
+  }
+
+  .clear-filters-btn {
+    align-self: stretch;
+    margin-top: 0;
+  }
+
+  .dashboard-table {
+    font-size: 0.8rem;
+  }
+
+  .dashboard-table th,
+  .dashboard-table td {
+    padding: 0.6rem 0.5rem;
+  }
+}
+
+/* Scrollbar Styling */
+.table-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #6fb85f;
+}

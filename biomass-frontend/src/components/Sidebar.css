@@ -1,0 +1,84 @@
+.sidebar-root {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(10px);
+}
+
+.navbar {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.45);
+  padding: 15px 30px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.navbar h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.filters-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 15px;
+  padding: 15px 20px;
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Make all select and file input boxes the same size */
+.filters-row select,
+.filters-row input[type="file"] {
+  height: 42px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #aad283;
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #000 !important;
+  font-size: 0.9rem;
+  width: 100%;   /* added to make width consistent */
+  box-sizing: border-box; /* ensures padding doesn't increase width */
+}
+
+.field-collection-center {
+  margin: 40px auto;
+  width: 300px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.field-collection-center button {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #1a1a1a !important;
+  border: 1px solid #aad283;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.field-collection-center button:hover {
+  background: rgba(220, 255, 220, 0.95) !important;
+}
+
+.csv-status {
+  font-size: 0.85rem;
+  color: #555;
+}
