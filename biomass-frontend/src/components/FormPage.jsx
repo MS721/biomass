@@ -2,7 +2,7 @@ import React from "react";
 
 export default function FormPage() {
   // Accessing the variable using the naming convention you specified
-  const koboFormUrl = import.meta.env.REACT_APP_KOBO_FORM_URL;
+  const koboFormUrl = import.meta.env.VITE_REACT_APP_KOBO_FORM_URL;
 
   return (
     <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column" }}>
