@@ -2,19 +2,31 @@
   "version": 2,
   "builds": [
     {
+      "src": "biomass-backend/submissions.js",
+      "use": "@vercel/node"
+    },
+    {
       "src": "biomass-backend/index.js",
       "use": "@vercel/node"
     },
     {
       "src": "biomass-frontend/package.json",
       "use": "@vercel/static-build",
-      "config": { 
-        "distDir": "dist"
-      }
+      "config": { "distDir": "dist" }
     }
   ],
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "biomass-backend/index.js" },
-    { "source": "/(.*)", "destination": "biomass-frontend/$1" }
+    { 
+      "source": "/api/submissions", 
+      "destination": "/biomass-backend/submissions.js" 
+    },
+    { 
+      "source": "/api/(.*)", 
+      "destination": "/biomass-backend/index.js" 
+    },
+    { 
+      "source": "/(.*)", 
+      "destination": "/biomass-frontend/$1" 
+    }
   ]
 }
